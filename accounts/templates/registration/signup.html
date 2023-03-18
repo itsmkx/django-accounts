@@ -1,0 +1,9 @@
+{% comment %} {% extends 'base_generic.html' %} {% endcomment %}
+<h2>Sign Up</h2>
+
+<form method='POST'>
+    {% csrf_token %}
+    {{form}}
+    <br>
+    <button type="submit">Sign In</button>
+</form>
