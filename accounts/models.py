@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save # to create profile for all user since they create new account
+from django.dispatch import receiver
 # Create your models here.
 
 ### here we will override the user so we can add any thing to the defoult user 
@@ -21,3 +23,11 @@ class Profile(models.Model):
     # image
     def __str__(self):
         return str(self.user)
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(
+            user = instance
+        )
